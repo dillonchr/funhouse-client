@@ -34,6 +34,14 @@ module.exports = {
             makeApiCall(`/budget/${id}`, transaction, onResponse);
         }
     },
+    cryptonics: {
+        encrypt(offset, body, onResponse) {
+            makeApiCall('/cryptonics/encrypt', {offset, body}, onResponse);
+        },
+        decrypt(offset, body, onResponse) {
+            makeApiCall('/cryptonics/decrypt', {offset, body}, onResponse);
+        }
+    },
     fired: {
         list(onResponse) {
             makeApiCall('/fired', onResponse);
