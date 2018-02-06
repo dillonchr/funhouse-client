@@ -42,6 +42,9 @@ module.exports = {
             makeApiCall('/cryptonics/decrypt', {offset, body}, onResponse);
         }
     },
+    dailytext(onResponse) {
+        makeApiCall('/dailytext', onResponse);  
+    },
     fired: {
         list(onResponse) {
             makeApiCall('/fired', onResponse);
