@@ -1,20 +1,23 @@
 const request = require('request');
 
-const makeApiCall = (url, onResponse) => {
+const makeApiCall = (url, body, onResponse) => {
+    if (typeof body === 'function') {
+        onResponse = body;
+        body = undefined;
+    }
     request({
         url: process.env.FUNHOUSE_URL + url,
+        json: true,
+        body,
+        method: body ? 'PUT' : 'GET',
         headers: {
             'X-API-Token': process.env.FUNHOUSE_TOKEN
         }
     }, (err, res, body) => {
         if (err || res.statusCode !== 200) {
-            onResponse(err || {error:true,status:res.statusCode});
+            onResponse(err || {error: true, status: res.statusCode});
         } else {
-            try {
-                onResponse(null, JSON.parse(body));
-            } catch (err) {
-                onResponse(err);
-            }
+            onResponse(null, body);
         }
     });
 };
@@ -24,8 +27,8 @@ module.exports = {
         balance(id, onResponse) {
             makeApiCall(`/budget/${id}`, onResponse);
         },
-        bought(id, price, description, onResponse) {
-            makeApiCall(`/budget/${id}/${price}/${encodeURIComponent(description)}`, onResponse);
+        bought(id, amount, description, onResponse) {
+            makeApiCall(`/budget/${id}`, {amount, description}, onResponse);
         }
     },
     fired: {
@@ -47,10 +50,10 @@ module.exports = {
             makeApiCall('/paycheck', onResponse);
         },
         pay(amount, onResponse) {
-            makeApiCall(`/paycheck/pay/${amount}`, onResponse);
+            makeApiCall('/paycheck', {amount}, onResponse);
         },
-        reset(amount, onResponse) {
-            makeApiCall(`/paycheck/reset/${amount}`, onResponse);
+        reset(balance, onResponse) {
+            makeApiCall('/paycheck', {reset: true, balance}, onResponse);
         }
     }
 };
