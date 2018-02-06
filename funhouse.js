@@ -23,12 +23,15 @@ const makeApiCall = (url, body, onResponse) => {
 };
 
 module.exports = {
+    bookmancy(searchOptions, onResponse) {
+        makeApiCall('/books', searchOptions, onResponse);
+    },
     budget: {
         balance(id, onResponse) {
             makeApiCall(`/budget/${id}`, onResponse);
         },
-        bought(id, amount, description, onResponse) {
-            makeApiCall(`/budget/${id}`, {amount, description}, onResponse);
+        bought(id, transaction, onResponse) {
+            makeApiCall(`/budget/${id}`, transaction, onResponse);
         }
     },
     fired: {
