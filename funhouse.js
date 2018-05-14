@@ -23,51 +23,26 @@ const makeApiCall = (url, body, onResponse) => {
 };
 
 module.exports = {
-    bookmancy(searchOptions, onResponse) {
-        makeApiCall('/books', searchOptions, onResponse);
-    },
+    bookmancy: (searchOptions, onResponse) => makeApiCall('/books', searchOptions, onResponse),
     budget: {
-        balance(id, onResponse) {
-            makeApiCall(`/budget/${id}`, onResponse);
-        },
-        bought(id, transaction, onResponse) {
-            makeApiCall(`/budget/${id}`, transaction, onResponse);
-        }
+        balance: (id, onResponse) => makeApiCall(`/budget/${id}`, onResponse),
+        bought: (id, transaction, onResponse) => makeApiCall(`/budget/${id}`, transaction, onResponse)
     },
     cryptonics: {
-        encrypt(offset, body, onResponse) {
-            makeApiCall('/cryptonics/encrypt', {offset, body}, onResponse);
-        },
-        decrypt(offset, body, onResponse) {
-            makeApiCall('/cryptonics/decrypt', {offset, body}, onResponse);
-        }
+        encrypt: (offset, body, onResponse) => makeApiCall('/cryptonics/encrypt', {offset, body}, onResponse),
+        decrypt: (offset, body, onResponse) => makeApiCall('/cryptonics/decrypt', {offset, body}, onResponse)
     },
-    dailytext(onResponse) {
-        makeApiCall('/dailytext', onResponse);  
-    },
+    dailytext: onResponse => makeApiCall('/dailytext', onResponse),
     fired: {
-        list(onResponse) {
-            makeApiCall('/fired', onResponse);
-        },
-        update(onResponse) {
-            makeApiCall('/fired/update', onResponse);
-        }
+        list: onResponse => makeApiCall('/fired', onResponse),
+        update: onResponse => makeApiCall('/fired/update', onResponse)
     },
-    gdq(onResponse) {
-        makeApiCall('/gdq', onResponse);
-    },
-    inflation(dollars, year, onResponse) {
-        makeApiCall(`/inflation/${year}/${dollars}`, onResponse);
-    },
+    gdq: onResponse => makeApiCall('/gdq', onResponse),
+    inflation: (dollars, year, onResponse) => makeApiCall(`/inflation/${year}/${dollars}`, onResponse),
     paycheck: {
-        balance(onResponse) {
-            makeApiCall('/paycheck', onResponse);
-        },
-        pay(amount, onResponse) {
-            makeApiCall('/paycheck', {amount}, onResponse);
-        },
-        reset(balance, onResponse) {
-            makeApiCall('/paycheck', {reset: true, balance}, onResponse);
-        }
-    }
+        balance: onResponse => makeApiCall('/paycheck', onResponse),
+        pay: (amount, onResponse) => makeApiCall('/paycheck', {amount}, onResponse),
+        reset: (balance, onResponse) => makeApiCall('/paycheck', {reset: true, balance}, onResponse)
+    },
+    wfh: onResponse => makeApiCall('/wfh', onResponse)
 };
