@@ -1,6 +1,6 @@
 {
   "name": "funhouse-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "connect and play with funhouse",
   "main": "funhouse.js",
   "repository": "dillonchr/funhouse-client",
