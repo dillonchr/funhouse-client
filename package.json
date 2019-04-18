@@ -1,6 +1,6 @@
 {
   "name": "@dillonchr/funhouse",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "connect and play with funhouse",
   "main": "funhouse.js",
   "repository": {
@@ -13,7 +13,7 @@
   "author": "dillonchr <j.dillon.christensen@gmail.com>",
   "license": "GPL-2.0",
   "dependencies": {
-    "request": "^2.87.0"
+    "@dillonchr/fetch": "^1.0.0"
   },
   "bugs": {
     "url": "https://github.com/dillonchr/funhouse-client/issues"

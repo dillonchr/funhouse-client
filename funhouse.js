@@ -1,21 +1,20 @@
-const request = require('request');
+const fetch = require('@dillonchr/fetch');
 
 const makeApiCall = (url, body, onResponse) => {
     if (typeof body === 'function') {
         onResponse = body;
         body = undefined;
     }
-    request({
+    fetch({
         url: process.env.FUNHOUSE_URL + url,
-        json: true,
+        method: body ? 'POST' : 'GET',
         body,
-        method: body ? 'PUT' : 'GET',
         headers: {
             'X-API-Token': process.env.FUNHOUSE_TOKEN
         }
-    }, (err, res, body) => {
-        if (err || res.statusCode !== 200) {
-            onResponse(err || {error: true, status: res.statusCode});
+    }, (err, body) => {
+        if (err) {
+            onResponse(err);
         } else {
             onResponse(null, body);
         }
@@ -54,3 +53,4 @@ module.exports = {
     },
     wfh: onResponse => makeApiCall('/wfh', onResponse)
 };
+
