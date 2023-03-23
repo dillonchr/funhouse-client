@@ -23,34 +23,17 @@ const makeApiCall = (url, body, onResponse) => {
 
 module.exports = {
     bookmancy: (searchOptions, onResponse) => makeApiCall('/books', searchOptions, onResponse),
-    budget: {
-        balance: (id, onResponse) => makeApiCall(`/budget/${id}`, onResponse),
-        bought: (id, transaction, onResponse) => {
-            console.warn('funhouse.budget.bought is deprecated. Use funhouse.budget.spend instead.');
-            makeApiCall(`/budget/${id}`, transaction, onResponse);
-        },
-        spend: (id, amount, description, onResponse) => makeApiCall(`/budget/${id}`, {amount, description}, onResponse)
+    bankrupt: {
+        balance: (id, onResponse) => makeApiCall(`/paycheck/${id}`, onResponse),
+        spend: (id, amount, description, onResponse) => makeApiCall(`/paycheck/${id}`, {amount, description}, onResponse),
+        reset: (id, balance, onResponse) => makeApiCall(`/paycheck/${id}`, {reset: true, balance}, onResponse)
     },
     cryptonics: {
         encrypt: (offset, body, onResponse) => makeApiCall('/cryptonics/encrypt', {offset, body}, onResponse),
         decrypt: (offset, body, onResponse) => makeApiCall('/cryptonics/decrypt', {offset, body}, onResponse)
     },
     dailytext: onResponse => makeApiCall('/dailytext', onResponse),
-    fired: {
-        list: onResponse => makeApiCall('/fired', onResponse),
-        update: onResponse => makeApiCall('/fired/update', onResponse)
-    },
     gdq: onResponse => makeApiCall('/gdq', onResponse),
     inflation: (dollars, year, onResponse) => makeApiCall(`/inflation/${year}/${dollars}`, onResponse),
-    paycheck: {
-        balance: onResponse => makeApiCall('/paycheck', onResponse),
-        pay: (amount, onResponse) => {
-            console.warn('funhouse.paycheck.pay is deprecated. Use funhouse.paycheck.spend instead.');
-            makeApiCall('/paycheck', {amount}, onResponse);
-        },
-        spend: (amount, onResponse) => makeApiCall('/paycheck', {amount}, onResponse),
-        reset: (balance, onResponse) => makeApiCall('/paycheck', {reset: true, balance}, onResponse)
-    },
-    wfh: onResponse => makeApiCall('/wfh', onResponse)
 };
 
